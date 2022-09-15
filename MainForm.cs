@@ -318,18 +318,19 @@ namespace FileCopier {
         }
 
         private void isPhone_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as CheckBox).Checked) {
+                this.sourcePath.ReadOnly = false;
+
+                this.mobilePath.Visible = true;
+                this.mobilePathLabel.Visible = true;
+            } else {
+                this.sourcePath.ReadOnly = true;
+
+                this.mobilePath.Visible = false;
+                this.mobilePathLabel.Visible = false;
+            }
+
             if (!this.IsFileLocked(new FileInfo(this.settingsFile))) {
-                if ((sender as CheckBox).Checked) {
-                    this.sourcePath.ReadOnly = false;
-
-                    this.mobilePath.Visible = true;
-                    this.mobilePathLabel.Visible = true;
-                } else {
-                    this.sourcePath.ReadOnly = true;
-
-                    this.mobilePath.Visible = false;
-                    this.mobilePathLabel.Visible = false;
-                }
                 this.saveConfig(this.loadCheckedItems());
             }
         }
